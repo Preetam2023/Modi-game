@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Modi Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="game-container">
+    <canvas id="gameCanvas"></canvas>
+    
+    <div class="score-display">
+      <div class="current-score">Score: <span id="scoreValue">0</span></div>
+      <div class="target-score">Target: <span id="targetValue">5</span></div>
+    </div>
+    
+    <div class="ui-overlay" id="startScreen">
+      <h1 class="title">MODI GAME</h1>
+      <p class="instructions">Help Modi fly through obstacles and collect coins!<br>Press SPACE or CLICK to flap and avoid obstacles.</p>
+      <button class="start-btn" id="startBtn">START GAME</button>
+      <div class="controls">
+        <p>CONTROLS: SPACE / CLICK to Flap | Collect Rahul & Mamata coins for points</p>
+      </div>
+    </div>
+    
+    <div class="win-screen" id="winScreen">
+      <h1 class="win-title">VICTORY!</h1>
+      <p class="final-score">Final Score: <span id="finalScore">0</span></p>
+      <div id="winImage" class="win-image">WINNER!</div>
+      <button class="restart-btn" id="restartBtn">PLAY AGAIN</button>
+    </div>
+
+    <div class="loading" id="loadingScreen">
+      Loading Game Assets...
+    </div>
+  </div>
+
+  <div class="creator-info">
+    Made by: Preetam Manna
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
