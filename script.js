@@ -31,8 +31,6 @@ window.addEventListener('resize', setupCanvas);
 
 // Game variables
 let face = { x: 80, y: 150, w: 50, h: 50, velocity: 0 };
-let gravity = 0.4;
-let jumpPower = -8;
 let pipes = [];
 let coins = [];
 let frame = 0;
@@ -48,9 +46,13 @@ function getGameParams() {
   return {
     faceWidth: isMobile ? 40 : 50,
     faceHeight: isMobile ? 40 : 50,
-    pipeSpeed: isMobile ? 2.5 : 3,
-    pipeGap: isMobile ? 130 : 150,
-    coinSize: isMobile ? 25 : 30
+    pipeSpeed: isMobile ? 1.5 : 3, // SLOWER on mobile
+    pipeGap: isMobile ? 140 : 150, // Slightly larger gap on mobile
+    coinSize: isMobile ? 25 : 30,
+    gravity: isMobile ? 0.3 : 0.4, // LESS gravity on mobile
+    jumpPower: isMobile ? -7 : -8, // Adjusted jump for mobile
+    pipeFrequency: isMobile ? 120 : 100, // FEWER pipes on mobile
+    coinFrequency: isMobile ? 100 : 80 // FEWER coins on mobile
   };
 }
 
@@ -257,7 +259,8 @@ function flap() {
     bgm.play().catch(e => console.log("Audio play failed:", e));
   }
   if (!gameOver && !gameWon) {
-    face.velocity = jumpPower;
+    const params = getGameParams();
+    face.velocity = params.jumpPower;
     jumpSound.play().catch(e => console.log("Audio play failed:", e));
   } else if (gameOver) {
     resetGame();
@@ -286,8 +289,8 @@ function resetGame() {
 
 // Generate pipes
 function generatePipes() {
-  if (frame % 100 === 0) {
-    const params = getGameParams();
+  const params = getGameParams();
+  if (frame % params.pipeFrequency === 0) {
     let gap = params.pipeGap;
     let topHeight = Math.floor(Math.random() * (canvas.height / 2)) + 50;
     pipes.push({
@@ -301,8 +304,8 @@ function generatePipes() {
 
 // Generate coins
 function generateCoins() {
-  if (frame % 80 === 0) {
-    const params = getGameParams();
+  const params = getGameParams();
+  if (frame % params.coinFrequency === 0) {
     let coinType = Math.random() > 0.5 ? "mamata" : "rahul";
     coins.push({
       x: canvas.width,
@@ -379,14 +382,16 @@ function draw() {
 function update() {
   if (!started || gameOver || gameWon) return;
 
-  face.velocity += gravity;
+  const params = getGameParams();
+  
+  // Apply gravity and update position
+  face.velocity += params.gravity;
   face.y += face.velocity;
 
   generatePipes();
   generateCoins();
 
   // Update pipes
-  const params = getGameParams();
   pipes.forEach((p) => {
     p.x -= params.pipeSpeed;
 
