@@ -46,7 +46,7 @@ function getGameParams() {
   return {
     faceWidth: isMobile ? 40 : 50,
     faceHeight: isMobile ? 40 : 50,
-    pipeSpeed: isMobile ? 1.5 : 3, // SLOWER on mobile
+    pipeSpeed: isMobile ? 1 : 2.5, // SLOWER on mobile
     pipeGap: isMobile ? 140 : 150, // Slightly larger gap on mobile
     coinSize: isMobile ? 25 : 30,
     gravity: isMobile ? 0.3 : 0.4, // LESS gravity on mobile
